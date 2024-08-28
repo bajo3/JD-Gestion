@@ -1,0 +1,224 @@
+/* Configuración general */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e4edfa;
+    color: #333;
+}
+
+/* Estilos del header */
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 1.5rem;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #18bc9c;
+}
+
+/* Estilos principales */
+main {
+    padding: 3rem;
+}
+
+#main-content {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+#main-content h2 {
+    font-size: 2rem;
+    color: #18bc9c;
+}
+
+#main-content p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+}
+
+/* Sección del formulario */
+#form-section {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#form-section h2 {
+    font-size: 1.8rem;
+    color: #34495e;
+    margin-bottom: 1.5rem;
+}
+
+form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #34495e;
+}
+
+form input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+form input:focus {
+    border-color: #18bc9c;
+    outline: none;
+}
+
+form button {
+    background-color: #18bc9c;
+    color: white;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #1abc9c;
+}
+
+/* Estilos del footer */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+
+
+
+/* Estilos para las secciones de autos en stock y clientes */
+#stock-section, #clients-section {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#stock-section h2, #clients-section h2 {
+    font-size: 1.8rem;
+    color: #34495e;
+    margin-bottom: 1.5rem;
+}
+
+#stock-list, #clients-list {
+    margin-top: 2rem;
+}
+
+#stock-list p, #clients-list p {
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+
+
+
+/* Estilos para la página de login */
+#login-section {
+    max-width: 400px;
+    margin: 5rem auto;
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#login-section h2 {
+    font-size: 1.8rem;
+    color: #34495e;
+    margin-bottom: 1.5rem;
+}
+
+#loginForm label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #34495e;
+    text-align: left;
+}
+
+#loginForm input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+#loginForm input:focus {
+    border-color: #18bc9c;
+    outline: none;
+}
+
+#loginForm button {
+    background-color: #18bc9c;
+    color: white;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#loginForm button:hover {
+    background-color: #1abc9c;
+}

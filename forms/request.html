@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Auto</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Solicitar Auto</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="request.html">Solicitar Auto</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="form-section">
+            <h2>Ingresa los datos del auto que deseas</h2>
+            <form id="solicitudForm">
+                <label for="cliente">Nombre del Cliente:</label><br>
+                <input type="text" id="cliente" name="cliente" required><br><br>
+
+                <label for="contacto">Contacto:</label><br>
+                <input type="text" id="contacto" name="contacto" required><br><br>
+
+                <label for="auto">Auto Deseado:</label><br>
+                <input type="text" id="auto" name="auto" required><br><br>
+
+                <button type="submit">Enviar Solicitud</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Auto Agency. Todos los derechos reservados.</p>
+    </footer>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
