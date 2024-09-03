@@ -1,74 +1,91 @@
+const CLIENT_ID = '1083902324626-a3chh92k741co9dmi55n3t6lee7353c0.apps.googleusercontent.com';
+const API_KEY = 'AIzaSyDrGiN5UNdIVtmnHnbE27X-AcEQA2HDfxY';
+const SHEET_ID = '1OIld6xpniVzyGSAjVlA5oh1_fGbyl5DBnZsn-SS_Zd8';
+const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Verificación de autenticación
-    const loginForm = document.getElementById('loginForm');
-    
-    if (!loginForm) { // Si no estamos en la página de login
-        const isAuthenticated = sessionStorage.getItem('isAuthenticated');
-        
-        if (!isAuthenticated) {
-            window.location.href = 'login.html';
-        }
-    } else { // Si estamos en la página de login
-        loginForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+    function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+    }
 
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+    function initClient() {
+        gapi.client.init({
+            apiKey: API_KEY,
+            clientId: CLIENT_ID,
+            discoveryDocs: DISCOVERY_DOCS,
+            scope: SCOPES
+        }).then(() => {
+            const authInstance = gapi.auth2.getAuthInstance();
+            authInstance.isSignedIn.listen(updateSigninStatus);
+            updateSigninStatus(authInstance.isSignedIn.get());
+            document.getElementById('authorize_button').onclick = handleAuthClick;
+            document.getElementById('signout_button').onclick = handleSignoutClick;
+        }, error => {
+            console.error('Error al inicializar el cliente:', error);
+        });
+    }
 
-            const validUsername = 'admin';
-            const validPassword = '1234';
-
-            if (username === validUsername && password === validPassword) {
-                sessionStorage.setItem('isAuthenticated', true);
-                window.location.href = 'index.html';
-            } else {
-                document.getElementById('loginError').style.display = 'block';
+    function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+            document.getElementById('authorize_button').style.display = 'none';
+            document.getElementById('signout_button').style.display = 'block';
+            if (window.location.pathname.endsWith('stock.html')) {
+                loadStockData();
+            } else if (window.location.pathname.endsWith('clients.html')) {
+                loadClientData();
             }
+        } else {
+            document.getElementById('authorize_button').style.display = 'block';
+            document.getElementById('signout_button').style.display = 'none';
+        }
+    }
+
+    function handleAuthClick() {
+        gapi.auth2.getAuthInstance().signIn();
+    }
+
+    function handleSignoutClick() {
+        gapi.auth2.getAuthInstance().signOut();
+    }
+
+    function loadStockData() {
+        gapi.client.sheets.spreadsheets.values.get({
+            spreadsheetId: SHEET_ID,
+            range: 'Stock!A2:C'
+        }).then(response => {
+            const range = response.result;
+            const stockList = document.getElementById('stock-list');
+            if (range.values && range.values.length > 0) {
+                stockList.innerHTML = range.values.map(row =>
+                    `<p>${row[0]} ${row[1]} (${row[2]})</p>`
+                ).join('');
+            } else {
+                stockList.innerHTML = 'No hay autos en stock.';
+            }
+        }).catch(error => {
+            console.error('Error al cargar datos:', error);
         });
     }
 
-    // Manejo del formulario de solicitud
-    const form = document.getElementById('solicitudForm');
-    if (form) {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const data = {
-                cliente: document.getElementById('cliente').value,
-                contacto: document.getElementById('contacto').value,
-                auto: document.getElementById('auto').value
-            };
-
-            console.log("Datos de la solicitud:", data);
-            form.reset();
+    function loadClientData() {
+        gapi.client.sheets.spreadsheets.values.get({
+            spreadsheetId: SHEET_ID,
+            range: 'Clientes!A2:B'
+        }).then(response => {
+            const range = response.result;
+            const clientsList = document.getElementById('clients-list');
+            if (range.values && range.values.length > 0) {
+                clientsList.innerHTML = range.values.map(row =>
+                    `<p>${row[0]} - ${row[1]}</p>`
+                ).join('');
+            } else {
+                clientsList.innerHTML = 'No hay clientes registrados.';
+            }
+        }).catch(error => {
+            console.error('Error al cargar datos:', error);
         });
     }
 
-    // Autos en stock
-    const stockList = document.getElementById('stock-list');
-    if (stockList) {
-        const autos = [
-            { marca: 'Toyota', modelo: 'Corolla', año: 2023 },
-            { marca: 'Honda', modelo: 'Civic', año: 2022 },
-            { marca: 'Ford', modelo: 'Mustang', año: 2024 }
-        ];
-
-        stockList.innerHTML = autos.map(auto => 
-            `<p>${auto.marca} ${auto.modelo} (${auto.año})</p>`
-        ).join('');
-    }
-
-    // Clientes
-    const clientsList = document.getElementById('clients-list');
-    if (clientsList) {
-        const clientes = [
-            { nombre: 'Juan Pérez', contacto: 'juan@example.com' },
-            { nombre: 'Ana López', contacto: 'ana@example.com' },
-            { nombre: 'Carlos García', contacto: 'carlos@example.com' }
-        ];
-
-        clientsList.innerHTML = clientes.map(cliente => 
-            `<p>${cliente.nombre} - ${cliente.contacto}</p>`
-        ).join('');
-    }
+    handleClientLoad();
 });
